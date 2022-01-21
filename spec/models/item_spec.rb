@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-
   before do
     @item = FactoryBot.build(:item)
   end
@@ -56,17 +55,17 @@ RSpec.describe Item, type: :model do
       it 'priceが全角では登録できない' do
         @item.price = '５００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid. Input half-width characters. Price is out of setting range")
+        expect(@item.errors.full_messages).to include('Price is invalid. Input half-width characters. Price is out of setting range')
       end
       it 'priceが299円以下では登録できない' do
         @item.price = '100'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid. Input half-width characters. Price is out of setting range")
+        expect(@item.errors.full_messages).to include('Price is invalid. Input half-width characters. Price is out of setting range')
       end
       it 'priceが9999999円以上では登録できない' do
         @item.price = '10000000'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid. Input half-width characters. Price is out of setting range")
+        expect(@item.errors.full_messages).to include('Price is invalid. Input half-width characters. Price is out of setting range')
       end
       it 'imageが空では登録できない' do
         @item.image = nil
@@ -75,5 +74,4 @@ RSpec.describe Item, type: :model do
       end
     end
   end
-
 end
