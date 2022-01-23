@@ -9,9 +9,9 @@ class DonationAddress
     validates :city
     validates :addresses
     validates :order_id
-    validates :phone_number, numericality: {with:  /\A\d{10}$|^\d{11}\z/, message: 'is invalid'}
+    validates :phone_number, numericality: {only_integer: true, with: /\A\d{10}$|^\d{11}\z/, message: 'is invalid'}
   end
-  validates :prefecture, numericality: {other_than: 0, message: "can't be blank"}
+  validates :prefecture, numericality: {other_than: 1, message: "can't be blank"}
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
