@@ -60,6 +60,11 @@ RSpec.describe OrderShipping, type: :model do
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Phone number can't be blank")
       end
+      it 'phone_numberが全角では登録できない' do
+        @order_shipping.phone_number = '０００１１１１２２２２'
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid")
+      end
       it 'phone_numberが9桁以下では登録できない' do
         @order_shipping.phone_number = '123456789'
         @order_shipping.valid?
@@ -74,6 +79,16 @@ RSpec.describe OrderShipping, type: :model do
         @order_shipping.token = ''
         @order_shipping.valid?
         expect(@order_shipping.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'userが紐付いていなければ出品できない' do
+        @order_shipping.user_id = nil
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("User can't be blank")
+      end
+      it 'userが紐付いていなければ出品できない' do
+        @order_shipping.item_id = nil
+        @order_shipping.valid?
+        expect(@order_shipping.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

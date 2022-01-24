@@ -1,10 +1,10 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: :index
+  before_action :set_item, only: [:index, :create]
   before_action :move_to_index_after_soldout, only: :index
   before_action :move_to_index, only: [:index]
 
   def index
-    @item = Item.find(params[:item_id])
     @order_shipping = OrderShipping.new
   end
 
@@ -15,12 +15,15 @@ class OrdersController < ApplicationController
       @order_shipping.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render :index
     end
   end
 
   private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def order_params
     params.require(:order_shipping).permit(
@@ -29,7 +32,6 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index_after_soldout
-    @item = Item.find(params[:item_id])
     redirect_to root_path unless @item.order.nil?
   end
 
