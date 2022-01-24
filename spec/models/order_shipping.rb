@@ -22,17 +22,18 @@ RSpec.describe OrderShipping, type: :model do
       it 'postal_codeが空では登録できない' do
         @order_shipping.postal_code = ''
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Postal code can't be blank", "Postal code is invalid. Include hyphen(-)")
+        expect(@order_shipping.errors.full_messages).to include("Postal code can't be blank",
+                                                                'Postal code is invalid. Include hyphen(-)')
       end
       it 'postal_codeがハイフンがなければ登録できない' do
         @order_shipping.postal_code = '1111111'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@order_shipping.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it 'postal_codeが全角では登録できない' do
         @order_shipping.postal_code = '５００ー００００'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Postal code is invalid. Include hyphen(-)")
+        expect(@order_shipping.errors.full_messages).to include('Postal code is invalid. Include hyphen(-)')
       end
       it 'prefectureが空では登録できない' do
         @order_shipping.prefecture_id = ''
@@ -62,12 +63,12 @@ RSpec.describe OrderShipping, type: :model do
       it 'phone_numberが9桁以下では登録できない' do
         @order_shipping.phone_number = '123456789'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_shipping.errors.full_messages).to include('Phone number is invalid')
       end
       it 'phone_numberが12桁以上では登録できない' do
         @order_shipping.phone_number = '123451234512'
         @order_shipping.valid?
-        expect(@order_shipping.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_shipping.errors.full_messages).to include('Phone number is invalid')
       end
       it 'tokenが空では登録できない' do
         @order_shipping.token = ''

@@ -51,7 +51,7 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index_after_soldout
-    redirect_to action: :index unless @item.order == nil
+    redirect_to action: :index unless @item.order.nil?
   end
 
   def item_params
